@@ -25,8 +25,9 @@ newsRoutes.post('/signup', async (req, res) => {
 
 		const salt = await bcrypt.genSalt(10);
 		hashedPassword = await bcrypt.hash(password, salt);
+		const news = preferences;
 
-		data.push({ email, name, password: hashedPassword, preferences });
+		data.push({ email, name, password: hashedPassword, preferences, news });
 
 		current_pushed_data = data.filter((user) => {
 			if (user.email == email) {
@@ -124,6 +125,6 @@ newsRoutes.put('/preferences', tokenValidator, async (req, res) => {
 const getUserData = () => {
 	return data;
 };
+newsRoutes.dataList = getUserData;
 
 module.exports = newsRoutes;
-module.exports = getUserData;

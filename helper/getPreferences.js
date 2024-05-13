@@ -14,6 +14,6 @@ const getPreferences = async () => {
 	return preferenceList;
 };
 
-const newsList = getPreferences()[0];
+const newsList = getPreferences();
 
 module.exports = newsList;
