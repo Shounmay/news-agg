@@ -5,7 +5,12 @@ const app = express();
 const tokenValidator = async (req, res, next) => {
 	try {
 		if (req.headers && req.headers.authorization) {
-			const token = req.headers.authorization;
+			let token = '';
+			if (req.headers.authorization.split(' ')[0] == 'Bearer') {
+				token = req.headers.authorization.split(' ')[1];
+			} else {
+				token = req.headers.authorization;
+			}
 
 			const decrypt_list = jwt.verify(token, process.env.JWT_SECRET);
 

@@ -3,7 +3,8 @@ const newsRoutes = require('express').Router();
 const jwt = require('jsonwebtoken');
 const tokenValidator = require('../middlewares/tokenValidation');
 const newsList = require('../helper/getPreferences');
-let data = [];
+const { userDataList } = require('../data/userData');
+let data = userDataList;
 
 newsRoutes.post('/signup', async (req, res) => {
 	try {
@@ -37,7 +38,7 @@ newsRoutes.post('/signup', async (req, res) => {
 			}
 		});
 		let dataObj = current_pushed_data[0];
-		console.log(data);
+		// console.log(data);
 
 		res.status(201).json({ message: 'registered', data: { dataObj } });
 	} catch (error) {

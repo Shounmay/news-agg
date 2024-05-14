@@ -3,30 +3,28 @@ const dotenv = require('dotenv');
 const newsRoutes = require('./routes/newsRoutes');
 const tokenValidator = require('./middlewares/tokenValidation');
 const getUserData = require('./routes/newsRoutes');
+const { userData, userDataList } = require('./data/userData');
 const app = express();
 const port = 6000;
-const routes = express.Router();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-app.use(routes);
-
-routes.use('/users', newsRoutes);
+app.use('/users', newsRoutes);
 
 app.get('/news', tokenValidator, async (req, res) => {
 	try {
 		const email = req.email;
-		data = newsRoutes.dataList();
-		// console.log('data: ', data);
-		userData = data.filter((user) => {
+		const data = userDataList;
+		console.log('data: ', data);
+		userList = data.filter((user) => {
 			if (user.email == email) {
 				return true;
 			} else {
 				return false;
 			}
 		});
-		user = userData[0];
+		user = userList[0];
 		res.status(200).json({ news: user.news });
 	} catch (error) {
 		res.status(400).json({ error: error.message });
